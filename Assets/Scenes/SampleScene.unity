@@ -547,7 +547,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1678163884}
+      - m_Target: {fileID: 0}
         m_MethodName: PulsarLagarto
         m_Mode: 1
         m_Arguments:
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1678163884}
+      - m_Target: {fileID: 0}
         m_MethodName: PulsarPapel
         m_Mode: 1
         m_Arguments:
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1678163884}
+      - m_Target: {fileID: 0}
         m_MethodName: PulsarTijera
         m_Mode: 1
         m_Arguments:
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1678163884}
+      - m_Target: {fileID: 0}
         m_MethodName: PulsarSpock
         m_Mode: 1
         m_Arguments:
@@ -1314,6 +1314,7 @@ GameObject:
   - component: {fileID: 1678163881}
   - component: {fileID: 1678163883}
   - component: {fileID: 1678163882}
+  - component: {fileID: 1678163885}
   - component: {fileID: 1678163884}
   m_Layer: 5
   m_Name: Reglas
@@ -1360,7 +1361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0e9c70535bf6cf64d88c8501e9fd0d4a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1387,15 +1388,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1678163880}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3608f7bb4098a3b46b204a7b07aa48b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1678163885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678163880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25cdde5a5496b8d4198e18c4c2bb74fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImagenIA: {fileID: 1678163880}
-  ROCK: {fileID: 21300000, guid: 181a06d4cc7296d448b2ffe617a644a3, type: 3}
-  PAPER: {fileID: 21300000, guid: 6bba3d700c5e1854a8612dca445d282d, type: 3}
-  SCISSORS: {fileID: 21300000, guid: 761d67f6863d42944b10ea23f877ac21, type: 3}
-  LIZARD: {fileID: 21300000, guid: adad7fc169f039e4e9f8e17c28b0f0b4, type: 3}
-  SPOCK: {fileID: 21300000, guid: f43394b55f3af3b47902c311ac11b023, type: 3}
+  ImagenIA: {fileID: 0}
+  ROCK: {fileID: 0}
+  PAPER: {fileID: 0}
+  SCISSORS: {fileID: 0}
+  LIZARD: {fileID: 0}
+  SPOCK: {fileID: 0}
 --- !u!1 &1748194884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1491,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1678163884}
+      - m_Target: {fileID: 0}
         m_MethodName: PulsarPiedra
         m_Mode: 1
         m_Arguments:
