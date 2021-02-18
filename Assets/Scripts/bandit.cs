@@ -1,9 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class bandit : MonoBehaviour
 {
+
+
+
+
+    public enum RPSAction
+    {
+        Rock, Paper, Scissors, Lizzard, Spok
+    }
+
+
     [SerializeField]
     private GameObject ImagenIA;
     [SerializeField]
@@ -22,15 +33,7 @@ public class bandit : MonoBehaviour
     private Sprite SPOCK;
 
 
-
-    public enum RPSAction
-    {
-        Rock, Paper, Scissors
-    }
-
-    public class Bandit : MonoBehaviour
-    {
-        bool init;
+    bool init;
         int totalActions;
         int[] count;
         float[] score;
@@ -41,7 +44,8 @@ public class bandit : MonoBehaviour
         public void InitUCB1()
         {
             if (init)
-                return;
+            return;
+        
             totalActions = 0;
             numActions = System.Enum.GetNames(typeof(RPSAction)).Length;
             count = new int[numActions];
@@ -62,19 +66,21 @@ public class bandit : MonoBehaviour
             int i, best;
             float bestScore;
             float tempScore;
-            InitUCB1();
-
-            for (i = 0; i < numActions; i++)
+       
+        InitUCB1();
+        
+        for (i = 0; i < numActions; i++)
+        {
+            if (count[i] == 0)
             {
-                if (count[i] == 0)
-                {
-                    lastStrategy = i;
-                    lastAction = GetActionForStrategy((RPSAction)i);
-                    return lastAction;
-                }
+                lastStrategy = i;
+                Debug.Log(lastStrategy);
+                lastAction = GetActionForStrategy((RPSAction)i);
+                return lastAction;
             }
+        }
 
-            best = 0;
+        best = 0;
             bestScore = score[best] / (float)count[best];
             float input = Mathf.Log(totalActions / (float)count[best]);
             input *= 2f;
@@ -95,75 +101,142 @@ public class bandit : MonoBehaviour
             }
 
             lastStrategy = best;
+     
             lastAction = GetActionForStrategy((RPSAction)best);
             return lastAction;
 
         }
 
 
-        public RPSAction GetActionForStrategy(RPSAction strategy)
+    public RPSAction GetActionForStrategy(RPSAction strategy)
+    {
+        RPSAction action;
+        switch (strategy)
         {
-            RPSAction action;
-            switch (strategy)
-            {
-                default:
-                case RPSAction.Paper:
-                    action = RPSAction.Scissors;
-                    ImagenIA.GetComponent<Image>().sprite = SCISSORS;
-                    break;
-                case RPSAction.Rock:
-                    action = RPSAction.Paper;
-                    ImagenIA.GetComponent<Image>().sprite = PAPER;
-                    break;
-                case RPSAction.Scissors:
-                    action = RPSAction.Rock;
-                    ImagenIA.GetComponent<Image>().sprite = ROCK;
-                    break;
-            }
-            return action;
+            default:
+            case RPSAction.Paper:
+                action = RPSAction.Spok;
+                ImagenIA.GetComponent<Image>().sprite = SPOCK;
+                TellOpponentAction(action);
+                break;
 
+            case RPSAction.Rock:
+                action = RPSAction.Paper;
+                ImagenIA.GetComponent<Image>().sprite = PAPER;
+                TellOpponentAction(action);
+                break;
+
+            case RPSAction.Scissors:
+                action = RPSAction.Rock;
+                ImagenIA.GetComponent<Image>().sprite = ROCK;
+                TellOpponentAction(action);
+                break;
+
+            case RPSAction.Lizzard:
+                action = RPSAction.Scissors;
+                ImagenIA.GetComponent<Image>().sprite = SCISSORS;
+                TellOpponentAction(action);
+                break;
+
+            case RPSAction.Spok:
+                action = RPSAction.Lizzard;
+                ImagenIA.GetComponent<Image>().sprite = LIZARD;
+                TellOpponentAction(action);
+                break;
         }
 
-        public float GetUtility(RPSAction myAction, RPSAction opponents)
+        return action;
+    }
+
+    public float GetUtility(RPSAction myAction, RPSAction opponents)
+    {
+        float utility = 0f;
+
+        if (opponents == RPSAction.Paper)
         {
-            float utility = 0f;
-            if (opponents == RPSAction.Paper)
-            {
-                if (myAction == RPSAction.Rock)
-                    utility = -1f;
-                else if (myAction == RPSAction.Scissors)
-                    utility = 1f;
-            }
-            else if (opponents == RPSAction.Rock)
-            {
-                if (myAction == RPSAction.Paper)
-                    utility = 1f;
-                else if (myAction == RPSAction.Scissors)
-                    utility = -1f;
-            }
-            else
-            {
-                if (myAction == RPSAction.Rock)
-                    utility = -1f;
-                else if (myAction == RPSAction.Paper)
-                    utility = 1f;
-            }
-            return utility;
+            if (myAction == RPSAction.Rock) 
+                utility = -1f;
+             if(myAction == RPSAction.Spok)
+                      utility = -1f;
+             if (myAction == RPSAction.Scissors)
+                utility = 1f;
+             if(myAction == RPSAction.Lizzard)
+                utility = 1f;
         }
 
-        public void TellOpponentAction(RPSAction action)
+        else if (opponents == RPSAction.Rock)
         {
+            if (myAction == RPSAction.Paper)  
+                utility = 1f;
+            if (myAction == RPSAction.Spok)
+                utility = 1f;
+
+            if (myAction == RPSAction.Scissors) 
+                utility = -1f;
+            if(myAction == RPSAction.Lizzard)
+                utility = -1f;
+        }
+
+        else if (opponents == RPSAction.Scissors)
+        {
+            if (myAction == RPSAction.Rock)
+                utility = -1f;
+              if (myAction == RPSAction.Spok)
+                utility = -1f;
+            if (myAction == RPSAction.Paper) 
+                utility = 1f;
+             if(myAction == RPSAction.Lizzard)
+                utility = 1f;
+        }
+
+        else if (opponents == RPSAction.Lizzard)
+        {
+            if (myAction == RPSAction.Rock)
+                utility = -1f;
+            if (myAction == RPSAction.Scissors)
+                utility = -1f;
+            if (myAction == RPSAction.Paper)
+                utility = 1f;
+            if(myAction == RPSAction.Spok)
+                utility = 1f;
+        }
+
+        else
+        {
+            if (myAction == RPSAction.Paper)
+                utility = -1f;
+            if (myAction == RPSAction.Lizzard)
+                utility = -1f;
+            if (myAction == RPSAction.Scissors)
+                utility = 1f;
+            if(myAction == RPSAction.Rock)
+                utility = 1f;
+        }
+
+        return utility;
+    }
+
+    public void TellOpponentAction(RPSAction action)
+        {
+       
             totalActions++;
-            float utility;
+      
+     
+        float utility;
             utility = GetUtility(lastAction, action);
+     
             score[(int)lastAction] += utility;
             count[(int)lastAction] += 1;
-        }
-
-
-
+        Debug.Log("Score: Piedra " + score[0] + " Papel " + score[1] + " Tijera " + score[2] + " Lagarto " + score[3] + " Spock " + score[4]);
+        Debug.Log("Count: Piedra " + count[0] + " Papel " + count[1] + " Tijera " + count[2] + " Lagarto " + count[3] + " Spock " + count[4]);
+        
 
     }
+
+
+
+
+    
 
 
 
@@ -174,7 +247,7 @@ public class bandit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+     
     }
 
     // Update is called once per frame

@@ -6,18 +6,22 @@ using UnityEngine.UI;
 
 public class botones : MonoBehaviour
 {
-   
-    private bool Jugando;
-    private int Option;
 
+ 
 
-   
-   
+    [SerializeField]
+    private GameObject ImagenIA;
+
+    bandit algbandit;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        Jugando = false;
-       
+  
+        algbandit = this.GetComponent<bandit>();
+        
+        // ImagenIA.GetComponent<algbandit>();
     }
 
     // Update is called once per frame
@@ -27,24 +31,22 @@ public class botones : MonoBehaviour
     }
 
     public void PulsarPiedra() {
-        //Si booleando jugando = true, se hace lo siguiente
-        //Añadir piedra a variable pulsada
-        //Ejecutar IA y dejar true el booleano jugando
-        Option = 0;
-     
-   
+        algbandit.GetNextActionUCB1();
+
     }
     public void PulsarPapel() {
-        Option = 1;
-    
+
+        algbandit.GetNextActionUCB1();
     }
     public void PulsarTijera() {
-        Option = 2;
+
+        algbandit.GetNextActionUCB1();
     }
     public void PulsarLagarto() {
-        Option = 3;
+
+        algbandit.GetNextActionUCB1();
     }
     public void PulsarSpock() {
-        Option = 4;
+        algbandit.GetNextActionUCB1();
     }
 }
